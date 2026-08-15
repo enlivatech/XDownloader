@@ -8,6 +8,7 @@ import { findButton, setTargetArticle } from '../utils/article'
 import { checkButtonStatus } from '../utils/button'
 import { isFunctionablePath } from '../utils/checker'
 import { makeHarvestButton } from './Harvester'
+import { makeThreadExportHarvestButton } from './ThreadExporter'
 import { pipe } from 'fp-ts/lib/function'
 
 const makeHarvester = (article: HTMLElement) => {
@@ -18,6 +19,7 @@ const makeHarvester = (article: HTMLElement) => {
 
   if (isFunctionablePath() && isArticleCanBeAppend(article)) {
     const makeButton = makeHarvestButton
+    const makeThreadButton = makeThreadExportHarvestButton
     const task = pipe(
       article,
       setTargetArticle,
@@ -28,6 +30,7 @@ const makeHarvester = (article: HTMLElement) => {
     )
 
     task()
+    makeThreadButton(article)()
   }
 }
 

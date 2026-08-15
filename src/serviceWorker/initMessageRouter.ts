@@ -14,10 +14,12 @@ import {
   filenameSettingsRepo,
   nativeFetchTweetSolution,
   tweetResponseCache,
+  xTokenRepo,
 } from '#provider'
 import captureResponseHandler from './messageHandlers/captureResponse'
 import checkDownloadHistoryHandler from './messageHandlers/checkDownloadHistory'
 import downloadMessageHandler from './messageHandlers/downloadMediaHandler'
+import exportThreadImageHandler from './messageHandlers/exportThreadImageHandler'
 import { type MessageRouter } from './messageRouter'
 
 const eventPublisher = getEventPublisher()
@@ -51,4 +53,10 @@ export const initMessageRouter = (router: MessageRouter): MessageRouter =>
     .route(
       WebExtAction.CaptureResponse,
       captureResponseHandler({ tweetResponseCache })
+    )
+    .route(
+      WebExtAction.ExportThreadImage,
+      exportThreadImageHandler({
+        xTokenRepo,
+      })
     )

@@ -9,6 +9,7 @@ export const enum WebExtAction {
   CheckDownloadHistory = 'check-download-history',
   CaptureResponse = 'capture-response',
   RequestTransactionId = 'request-tx-id',
+  ExportThreadImage = 'export-thread-image',
 }
 
 export type WebExtMessageObject<

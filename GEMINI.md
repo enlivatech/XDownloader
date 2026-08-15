@@ -1,4 +1,4 @@
-# CLAUDE.md
+# GEMINI.md
 
 请读取并严格遵守同目录下的 [AGENTS.md](./AGENTS.md)。
 

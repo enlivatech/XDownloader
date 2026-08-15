@@ -136,5 +136,32 @@ article
     &:hover
       +hover-deck-harvester
 
-.tweet-detail-actions.deck-harvest-actions > li
-  width: 20% !important
+.thread-exporter
+  display: flex
+  order: 11 !important
+  cursor: pointer
+  justify-content: flex-start
+  flex-direction: row
+  margin-left: 12px
+  svg
+    fill: currentColor
+  &.exporting
+    svg
+      +loading-spin
+  &.error
+    svg
+      fill: red !important
+  &.success
+    svg
+      fill: rgb(0, 186, 124) !important
+  &:hover, &:hover:active
+    svg
+      fill: rgb(29, 161, 242)
+  &.status
+    min-height: 1.875rem
+    padding-bottom: 0
+    padding-top: 0
+  &.stream
+    flex-grow: 0
+    flex-basis: auto
+    margin-left: 12px
