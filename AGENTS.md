@@ -12,6 +12,8 @@ Fork 自 [EltonChou/TwitterMediaHarvest](https://github.com/EltonChou/TwitterMed
 
 **每次会话开始，先读 `HANDOFF.md`**（再按需读 `PROJECT.md`），了解当前进展、下一步和阻塞再动手；不论使用者有没有说下面的口令。
 
+**先同步**：会话开始先 `git fetch`；落后远端且工作区干净，就 `git pull --ff-only` 拉到最新再读断点（换电脑接手时，另一台推上来的进展就到了）；有本地改动或分叉时先报告，不自动处理。
+
 **断点落后时自动补齐**：读完 `HANDOFF.md` 后，看它「成果与版本」写的快照基线提交之后的新提交（`git log --oneline <基线>..HEAD`）和 `git status --short`。这些是断点没写到的进展：先简短补进 `HANDOFF.md`，再继续，不要照着旧断点重做。
 
 **随做随记**：每完成一个阶段性成果（一个功能、一次修复、一次验证结果），就更新 `HANDOFF.md`（进展、已验证与未验证、下一步）并提交；推送在交接或换设备前做。会话中途断掉，断点最多落后一步。交接前跑 `~/Projects/Workbench/agent-rules/check-projects.sh --here`（Windows 用 Git Bash 跑同一个脚本）确认没有漏推、漏记。
