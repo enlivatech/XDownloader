@@ -1,7 +1,6 @@
 # AGENTS.md — XDownloader（Media Harvest Fork）
 
-> 本文件是所有 Agent 的共同工作协议，跟随 Git 同步。
-> 跨项目偏好读 Vault 根目录 `USER.md`；项目断点读 Vault `Projects/XDownloader/NOTES.md`。
+> 本文件是所有 Agent 的共同工作协议，跟随 Git 同步。项目断点在根目录 `HANDOFF.md`。
 
 ## 项目
 
@@ -9,48 +8,15 @@ Media Harvest（XDownloader）— 从 X/Twitter 下载图片/视频的浏览器�
 
 Fork 自 [EltonChou/TwitterMediaHarvest](https://github.com/EltonChou/TwitterMediaHarvest)，远程仓库 `enlivatech/XDownloader`。
 
-## Vault 与路径
+## 项目交接（AZ-WORKFLOW v2）
 
-| 项                   | 值                                                    |
-| -------------------- | ----------------------------------------------------- |
-| 环境变量             | `OBSIDIAN_VAULT`（必须已设置）                        |
-| macOS Vault 物理路径 | `/Users/A.Z/Documents/Obsidian/AZ`                    |
-| 项目断点             | `$OBSIDIAN_VAULT/Projects/XDownloader/NOTES.md`       |
-| 通用偏好             | `$OBSIDIAN_VAULT/USER.md`                             |
-| 代码根目录（macOS）  | `~/Projects/XDownloader`                              |
-| 代码实际路径         | `~/Developer/TwitterMediaHarvest`（symlink 指向此处） |
+**每次会话开始，先读 `HANDOFF.md`**（再按需读 `PROJECT.md`），了解当前进展、下一步和阻塞再动手；不论使用者有没有说下面的口令。
 
-Agent 必须先读 `USER.md`，再读本项目 `NOTES.md`。Vault 与 Git 对账凭证是 commit 短哈希。
-
-## 三个口令
-
-同一语义，所有 Agent 通用：
-
-| 口令         | 动作                                   | 边界                                                            |
-| ------------ | -------------------------------------- | --------------------------------------------------------------- |
-| **继续项目** | 安全 pull → 读规则与断点 → 核对 → 开工 | 工作区有未提交改动时不得 pull/stash/覆盖；冲突/认证失败必须停止 |
-| **项目进度** | 只读核对 Git + Vault → 报告            | 不编辑文件、不 pull、不 commit、不 push、不更新 Vault           |
-| **交接项目** | 验证 → commit → push → 写断点          | 无改动不空提交；push 失败仍写断点并记录阻塞原因                 |
-
-### 继续项目
-
-1. 检查 `git status`；工作区干净才 `git pull --ff-only`
-2. 重新读取本文件、`USER.md`、`NOTES.md`
-3. 核对分支、最近 commit、断点「下一步」，报告后继续
-
-### 项目进度
-
-1. 只读：读三个文件 + `git status` / `git log -3` / `git remote -v`
-2. 报告：当前目标、已完成、代码状态、未提交改动、下一步、阻塞
-3. 不可访问的来源标「未验证」
-
-### 交接项目
-
-1. 审查 `git diff`，排除 `.env`、密钥、缓存
-2. 按风险运行验证（见下方命令）
-3. 中文 commit message；普通 `git push`；禁止 force push
-4. push 成功后更新 `NOTES.md` 断点五行 + append 决策日志
-5. 只能说「本机 Vault 已写入」，不能宣称跨设备已同步
+- 项目身份见 `PROJECT.md`；最新断点只记在根目录 `HANDOFF.md`；决策历史在 `docs/DECISION_LOG.md`（只追加，不改写）。项目管理不使用 Obsidian。
+- 口令按 AZ-WORKFLOW v2 执行（AZ 本机 `~/Projects/Workbench/AZ-WORKFLOW-v2.0.md`），要点：
+  - **继续项目 / 开始项目 / `az-start`**：工作区干净才 `git pull --ff-only`；有本地改动时不 pull、不 stash、不覆盖，先报告；遇到分叉、冲突、认证或网络问题时停止，不得改用 merge、rebase、reset 或 force。拉取后重新读取本文件、`PROJECT.md`、`HANDOFF.md`，核对环境与断点后，从「接手后的第一个动作」继续。
+  - **项目进度 / `az-status`**：严格只读，不编辑、不安装依赖、不 pull、不 commit、不 push。核对分支、commit、`git status --short`、远端分支与 `HANDOFF.md`，报告目标、进展、未提交改动、下一步、阻塞和核对时间；无法访问的来源标「未验证」。
+  - **交接项目 / `az-handoff`**：审查 diff 和敏感信息（`.env`、密钥、token、密码、个人数据、缓存），按改动风险做相称验证；更新 `HANDOFF.md`（写真实验证结果和快照基于的提交，不写本次提交自己的哈希），在决策日志末尾追加本次关键决定；只暂存相关文件，中文提交，普通 `git push` 并核对远端；不得 force push。推送失败时保留本地断点并说明原因。
 
 ## 安全边界
 
