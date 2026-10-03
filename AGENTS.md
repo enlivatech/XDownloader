@@ -12,6 +12,10 @@ Fork 自 [EltonChou/TwitterMediaHarvest](https://github.com/EltonChou/TwitterMed
 
 **每次会话开始，先读 `HANDOFF.md`**（再按需读 `PROJECT.md`），了解当前进展、下一步和阻塞再动手；不论使用者有没有说下面的口令。
 
+**断点落后时自动补齐**：读完 `HANDOFF.md` 后，看它「成果与版本」写的快照基线提交之后的新提交（`git log --oneline <基线>..HEAD`）和 `git status --short`。这些是断点没写到的进展：先简短补进 `HANDOFF.md`，再继续，不要照着旧断点重做。
+
+**随做随记**：每完成一个阶段性成果（一个功能、一次修复、一次验证结果），就更新 `HANDOFF.md`（进展、已验证与未验证、下一步）并提交；推送在交接或换设备前做。会话中途断掉，断点最多落后一步。交接前跑 `~/Projects/Workbench/agent-rules/check-projects.sh --here`（Windows 用 Git Bash 跑同一个脚本）确认没有漏推、漏记。
+
 - 项目身份见 `PROJECT.md`；最新断点只记在根目录 `HANDOFF.md`；决策历史在 `docs/DECISION_LOG.md`（只追加，不改写）。项目管理不使用 Obsidian。
 - 口令按 AZ-WORKFLOW v2 执行（AZ 本机 `~/Projects/Workbench/AZ-WORKFLOW-v2.0.md`），要点：
   - **继续项目 / 开始项目 / `az-start`**：工作区干净才 `git pull --ff-only`；有本地改动时不 pull、不 stash、不覆盖，先报告；遇到分叉、冲突、认证或网络问题时停止，不得改用 merge、rebase、reset 或 force。拉取后重新读取本文件、`PROJECT.md`、`HANDOFF.md`，核对环境与断点后，从「接手后的第一个动作」继续。
