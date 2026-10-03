@@ -16,7 +16,7 @@ Fork 自 [EltonChou/TwitterMediaHarvest](https://github.com/EltonChou/TwitterMed
 
 **断点落后时自动补齐**：读完 `HANDOFF.md` 后，看它「成果与版本」写的快照基线提交之后的新提交（`git log --oneline <基线>..HEAD`）和 `git status --short`。这些是断点没写到的进展：先简短补进 `HANDOFF.md`，再继续，不要照着旧断点重做。
 
-**随做随记**：每完成一个阶段性成果（一个功能、一次修复、一次验证结果），就更新 `HANDOFF.md`（进展、已验证与未验证、下一步）并提交；推送在交接或换设备前做。会话中途断掉，断点最多落后一步。交接前跑 `~/Projects/Workbench/agent-rules/check-projects.sh --here`（Windows 用 Git Bash 跑同一个脚本）确认没有漏推、漏记。
+**随做随记**：每完成一个阶段性成果（一个功能、一次修复、一次验证结果），就更新 `HANDOFF.md`（进展、已验证与未验证、下一步）并提交，提交后立刻 `git push`（例外：公开仓库、没有远端的项目只提交不推送；`.github/workflows` 里有推送即构建、发布或部署的（`on: push` 到当前分支），攒到「交接项目」时一起推。推送失败就说明原因，下一步先补推）。会话中途断掉或直接换电脑，GitHub 上最多落后一步。交接前跑 `~/Projects/Workbench/agent-rules/check-projects.sh --here`（Windows 用 Git Bash 跑同一个脚本）确认没有漏推、漏记。
 
 - 项目身份见 `PROJECT.md`；最新断点只记在根目录 `HANDOFF.md`；决策历史在 `docs/DECISION_LOG.md`（只追加，不改写）。项目管理不使用 Obsidian。
 - 口令按 AZ-WORKFLOW v2 执行（AZ 本机 `~/Projects/Workbench/AZ-WORKFLOW-v2.0.md`），要点：
